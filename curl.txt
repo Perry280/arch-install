@@ -1,0 +1,92 @@
+Perfetto, creare uno script per automatizzare l’installazione di Arch Linux è un ottimo approccio e totalmente fattibile **partendo dall’ambiente live ISO ufficiale**, che ha già `curl` preinstallato.
+
+Ecco una guida concreta per **scaricare i tuoi file/script personalizzati da internet**, direttamente all’interno dell’ambiente live:
+
+---
+
+### ✅ Prerequisiti nell’ambiente ISO di Arch Linux
+
+L’ambiente live dell’ISO ufficiale di Arch include già:
+
+* `curl`
+* `pacman`
+* `bash`
+* Rete configurata automaticamente (via DHCP, se disponibile)
+
+Puoi testare la rete con:
+
+```bash
+ping archlinux.org
+```
+
+---
+
+### 📥 Metodo consigliato: scaricare con `curl`
+
+#### Esempio: scaricare e avviare il tuo script
+
+```bash
+curl -O https://tuosito.com/script-install.sh
+chmod +x script-install.sh
+./script-install.sh
+```
+
+Oppure in una sola riga:
+
+```bash
+bash <(curl -s https://tuosito.com/script-install.sh)
+```
+
+> ✅ Questo funziona perfettamente nell’ambiente live senza necessità di installare altro.
+
+---
+
+### 🔒 Consiglio di sicurezza
+
+Per script critici come l’installazione di un sistema operativo, usa **HTTPS** per evitare attacchi MITM.
+
+---
+
+### 📁 Dove mettere i tuoi file online?
+
+Se non hai un server personale, puoi usare:
+
+* **GitHub**: carica uno script `install.sh` in un repo pubblico
+
+  * Scaricabile con:
+
+    ```bash
+    curl -L -O https://raw.githubusercontent.com/NOMEUTENTE/NOMEREPO/main/install.sh
+    ```
+* **GitLab / Bitbucket**: stesso meccanismo
+* **Pastebin (raw)** o **0x0.st**, **transfer.sh**, ecc. (per script temporanei)
+
+---
+
+### 💡 Pro tip: scarica anche file ausiliari
+
+Il tuo script può includere altre risorse da scaricare durante l’installazione:
+
+```bash
+curl -LO https://raw.githubusercontent.com/tuouser/arch-auto-install/main/miofile.conf
+curl -LO https://raw.githubusercontent.com/tuouser/arch-auto-install/main/mio-pkglist.txt
+```
+
+---
+
+### 🧪 Test consigliato
+
+1. Avvia l’ambiente live da ISO
+2. Assicurati che la rete funzioni (`ping archlinux.org`)
+3. Esegui il comando `curl` per scaricare il tuo script
+4. Verifica che il contenuto sia corretto: `less script-install.sh`
+5. Eseguilo
+
+---
+
+### 🧰 Vuoi un esempio di script base?
+
+Posso aiutarti a costruirne uno per partizionamento, `pacstrap`, `fstab`, `chroot`, ecc., se vuoi.
+
+Fammi sapere che tipo di automazione ti serve (basic, con desktop, con LUKS, con btrfs snapshot, ecc.) e ti genero lo scheletro completo.
+
