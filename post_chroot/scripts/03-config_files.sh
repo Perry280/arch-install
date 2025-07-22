@@ -16,8 +16,7 @@ if [ ! -f "$FILES/pam_env.conf" ]; then
 fi
 cat "$FILES/pam_env.conf" | tee -a /etc/security/pam_env.conf
 
-FILES=$(ls $FILES/files/)
-for d in $FILES ; do
+FILES="$FILES/files"
+for d in "$FILES"/* ; do
     cp -rf "$d" "/$(basename "$d")"
 done
-

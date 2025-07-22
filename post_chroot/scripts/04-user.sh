@@ -28,5 +28,19 @@ while [ -n "$USER_PW" ]; do
 done
 echo "$ARCH_USER:USER_PW" | chpasswd
 
-chown "$ARCH_USER":"$ARCH_USER" "./user_files/*"
-cp -fp "./user_files/*" "/home/$ARCH_USER/"
+FILES="./files/04-user"
+for f in "$FILES"/* ; do
+    chown "$ARCH_USER":"$ARCH_USER" "$f"
+done
+for f in "$FILES"/.* ; do
+    chown "$ARCH_USER":"$ARCH_USER" "$f"
+done
+
+cp -fp "$FILES/*" "/home/$ARCH_USER/"
+cp -fp "$FILES/.*" "/home/$ARCH_USER/"
+
+(
+    cd "/home/$ARCH_USER"
+    mkdir -p "Desktop/share"
+    chown -R "$ARCH_USER":"$ARCH_USER" "Desktop"
+)

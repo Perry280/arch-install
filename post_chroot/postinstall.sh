@@ -64,17 +64,22 @@ sed -i "s/#$LOCALE_IT/$LOCALE_IT/" /etc/locale.gen
 sed -i "s/#$LOCALE_US/$LOCALE_US/" /etc/locale.gen
 locale-gen
 
-echo "$ARCH_HOST" | tee "./$CONFIG_FILES/etc/hostname"
+echo "$ARCH_HOST" | tee "./files/03-config_files/files/etc/hostname"
 
-## Install packages
-#run_script "$PACKAGES"
+# Install packages
+bash ./scripts/01-packages.sh
 
-## VirtualBox Guest Additions
-#run_script "$VIRTUALBOX"
+# VirtualBox Guest Additions
+bash ./scripts/02-virtualbox.sh
 
-## Copy configuration files
-#run_script "$CONFIG_FILES"
+# Copy configuration files
+bash ./scripts/03-config_files.sh
 
-## Copy user files
-#run_script "$USER_FILES" "$ARCH_USER"
+# Copy user files
+bash ./scripts/04-user.sh "$ARCH_USER"
 
+# Neovim setup, lua-language-server, yay
+bash ./scripts/05-extra.sh "$ARCH_USER"
+
+# Bootloader
+bash ./scripts/06-bootloader.sh
