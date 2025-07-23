@@ -1,0 +1,2 @@
+pacman-filesdb-refresh.timer
+reflector.timer

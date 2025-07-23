@@ -83,3 +83,6 @@ bash ./scripts/05-extra.sh "$ARCH_USER"
 
 # Bootloader
 bash ./scripts/06-bootloader.sh
+#
+# Services and timers
+bash ./scripts/07-services.sh

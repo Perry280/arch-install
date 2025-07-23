@@ -20,3 +20,7 @@ FILES="$FILES/files"
 for d in "$FILES"/* ; do
     cp -rf "$d" "/$(basename "$d")"
 done
+
+JOURNAL="/etc/systemd/journald.conf"
+sed -i "s/^#?Storage=*$/Storage=persistent/" "$JOURNAL"
+sed -i "s/^#?SystemMaxUse=*$/SystemMaxUse=100M/" "$JOURNAL"
