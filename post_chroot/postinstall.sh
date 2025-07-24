@@ -86,3 +86,8 @@ bash ./scripts/06-bootloader.sh
 #
 # Services and timers
 bash ./scripts/07-services.sh
+
+echo "Installation complete."
+echo "Run:"
+echo "exit"
+echo "reboot"

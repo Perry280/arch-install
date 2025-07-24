@@ -18,9 +18,29 @@ cat "$FILES/pam_env.conf" | tee -a /etc/security/pam_env.conf
 
 FILES="$FILES/files"
 for d in "$FILES"/* ; do
-    cp -rf "$d" "/$(basename "$d")"
+    name=$(basename "$d")
+    cp -rf "$d" "/$name"
 done
 
 JOURNAL="/etc/systemd/journald.conf"
-sed -i "s/^#?Storage=*$/Storage=persistent/" "$JOURNAL"
-sed -i "s/^#?SystemMaxUse=*$/SystemMaxUse=100M/" "$JOURNAL"
+sed -i "s/^#?Storage=.*$/Storage=persistent/" "$JOURNAL"
+sed -i "s/^#?SystemMaxUse=.*$/SystemMaxUse=100M/" "$JOURNAL"
+
+PACCACHE_FLAGS="-k0"
+sed -i "s/^PACCACHE=.*/PACCACHE='$PACCACHE_FLAGS'/" /etc/conf.d/pacman-contrib
+
+sed -i "s/#Color/Color/" /etc/pacman.conf
+
+MAKEPKG="/etc/makepkg.conf"
+sed -i  "s/^MAKEFLAGS=.*$/MAKEFLAGS=\"--jobs=\$(nproc)\"/" "$MAKEPKG"
+
+CFLAGS="-march=native -O2 -pipe -fno-plt -fexceptions \
+        -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security \
+        -fstack-clash-protection -fcf-protection \
+        -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer \
+        -ftree-vectorize -fvect-cost-model=cheap \
+        -fno-semantic-interposition -msse -msse2 -msse3 -mmmx"
+sed -i  "s/^CFLAGS=\"\(.*\\\n\)*.*\"$/CFLAGS=\"$CFLAGS\"/" "$MAKEPKG"
+
+RUSTFLAGS="-Cforce-frame-pointers=yes -C opt-level=2 -C target-cpu=native"
+sed -i "s/^RUSTFLAGS=.*$/RUSTFLAGS=\"$RUSTFLAGS\"/" "/etc/makepkg.conf.d/rust.conf"

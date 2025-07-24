@@ -1,6 +1,0 @@
-pacman.conf
-mkinitcpio.conf
-mkinitcpio.d/linux.preset
-makepkg.conf
-makepkg.conf.d/rust.conf
-pam_env.conf

@@ -27,3 +27,5 @@ fi
 UUID=$(blkid -o export "$DISK" | grep "^UUID=")
 echo "root=$UUID rw" | tee "$CMDLINE/cmdline"
 cp "$CMDLINE/cmdline" "$CMDLINE/fallback_cmdline"
+
+mkinitcpio -P
