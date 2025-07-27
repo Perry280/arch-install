@@ -25,7 +25,8 @@ if [ "$ID" != "arch" ]; then
 fi
 
 echo "Running on Arch Linux."
-
+pacman -Sy
+pacman -Fy
 LIVE_ENVIRONMENT="live_environment"
 if [[ -d "./$LIVE_ENVIRONMENT" && -f "./$LIVE_ENVIRONMENT/$LIVE_ENVIRONMENT.sh" ]]; then
     (
