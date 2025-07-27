@@ -57,7 +57,7 @@ sgdisk --new=3:"$ROOT_START":"$ROOT_SIZE" --typecode=3:8304 --change-name=3:"Roo
 sgdisk -p "$DISK"
 
 echo "Formatting partitions"
-mksf.fat -F 32 "$EFI"
+mkfs.fat -F 32 "$EFI"
 mkswap "$SWAP"
 mkfs.ext4 "$ROOT"
 
