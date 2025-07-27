@@ -6,7 +6,7 @@ ARCH_USER="arch"
 ARCH_HOST="Arch"
 
 ROOT_PW=""
-while [ -n "$ROOT_PW" ]; do
+while [ -z "$ROOT_PW" ]; do
     echo -n "Insert root password: "
     read -rs ROOT_PW
     echo -n "Insert password again: "
