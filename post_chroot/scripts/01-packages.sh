@@ -2,6 +2,7 @@
 
 set -e
 
+echo "Installing packages"
 PACKAGES="./files/01-packages/packages.txt"
 if [ ! -f "$PACKAGES" ]; then
     echo "packages.txt not found."

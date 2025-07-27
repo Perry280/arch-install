@@ -16,10 +16,12 @@ if [ ! -f "$TIMERS" ]; then
     exit 1
 fi
 
+echo "Enabling services"
 while IFS= read -r service ; do
     systemctl enable "$service"
 done < "$SERVICES"
 
+echo "Enabling timers"
 while IFS= read -r timer ; do
     systemctl enable "$timer"
 done < "$TIMERS"

@@ -2,26 +2,6 @@
 
 set -euo pipefail
 
-######################################################################
-######################################################################
-
-run_script () {
-    if [ -z "$1" ]; then
-        echo "No argument passed"
-        exit 1
-    fi
-
-    if [[ -d "./$1" && -f "./$1/script.sh" ]]; then
-        (
-            cd "./$1" || exit 1
-            bash "./script.sh" "${@:2}"
-        )
-    fi
-}
-
-######################################################################
-######################################################################
-
 ARCH_USER="arch"
 ARCH_HOST="Arch"
 
@@ -53,10 +33,12 @@ if [ -n "$option" ]; then
 fi
 
 ######################################################################
+echo "Setting timezone"
 TIMEZONE="Europe/Rome"
 ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 hwclock --systohc
 
+echo "Setting locales"
 LOCALE_IT="it_IT.UTF-8 UTF-8"
 LOCALE_US="en_US.UTF-8 UTF-8"
 

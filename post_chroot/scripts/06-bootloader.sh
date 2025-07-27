@@ -2,6 +2,7 @@
 
 set -eu
 
+echo "Installing bootloader"
 bootctl --esp-path=/efi install
 FILES="./files/06-bootloader"
 cp -rf "$FILES/efi" "/efi"
@@ -11,7 +12,7 @@ LINUX_PRESET="/etc/mkinitcpio.d/linux.preset"
 sed -i "s/^\(.*\)_image/#\1_image/" "$LINUX_PRESET"
 sed -i "s/^#\(.*\)_uki/\1_uki/" "$LINUX_PRESET"
 
-REPLACE='s/^fallback_options="\(.*\)"$/fallback_options="--cmdline \/etc\/kernel\/fallback_cmdline \1"/'
+REPLACE="s/^fallback_options=\"\(.*\)\"$/fallback_options=\"--cmdline \/etc\/kernel\/fallback_cmdline \1\"/"
 sed -i "$REPLACE" "$LINUX_PRESET"
 
 CMDLINE="/etc/kernel"

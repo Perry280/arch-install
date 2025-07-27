@@ -7,7 +7,7 @@ if [ -n "$1" ]; then
     ARCH_USER="$1"
 fi
 
-# Install neovim setup
+echo "Installing neovim"
 (
     cd "/home/$ARCH_USER/.config"
     git clone https://github.com/Perry280/coding-setups.git
@@ -20,7 +20,7 @@ fi
     chown -R "$ARCH_USER":"$ARCH_USER" nvim
 )
 
-# Install lua-language-server
+echo "Installing lua-language-server"
 (
     cd "/home/$ARCH_USER/.local/share"
     git clone https://github.com/LuaLS/lua-language-server
@@ -33,7 +33,7 @@ fi
     ln -sf "$LUA" "$LUA_LINK"
 )
 
-# Install yay
+echo "Installing yay"
 (
     cd "/home/$ARCH_USER"
     mkdir repos
