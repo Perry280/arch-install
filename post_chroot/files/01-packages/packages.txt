@@ -3,7 +3,6 @@ base-devel
 bash-completion
 btrfs-progs
 dosfstools
-e2fsprogs
 exfatprogs
 git
 gzip
@@ -18,7 +17,6 @@ pacman-contrib
 reflector
 ripgrep
 sudo
-tar
 texinfo
 tree
 unzip
