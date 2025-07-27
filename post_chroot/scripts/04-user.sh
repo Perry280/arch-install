@@ -15,7 +15,7 @@ echo "Creating user $ARCH_USER"
 useradd -mG wheel -s /bin/bash "$ARCH_USER"
 
 USER_PW=""
-while [ -n "$USER_PW" ]; do
+while [ -z "$USER_PW" ]; do
     echo -n "Insert $ARCH_USER password: "
     read -rs USER_PW
     echo -n "Insert password again: "
