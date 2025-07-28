@@ -19,10 +19,12 @@ cat "$FILES/pam_env.conf" | tee -a /etc/security/pam_env.conf
 
 echo "Copying configuration files"
 FILES="$FILES/files"
-for d in "$FILES"/* ; do
-    name=$(basename "$d")
-    cp -rf "$d" "/$name"
-done
+(
+    cd "$FILES"
+    for d in ./* ; do
+        cp -rf "$d" "/$d"
+    done
+)
 
 echo "Setting journald"
 JOURNAL="/etc/systemd/journald.conf"

@@ -6,13 +6,11 @@ ARCH_USER="arch"
 ARCH_HOST="Arch"
 
 ROOT_PW=""
-while [ -z "$ROOT_PW" ]; do
+while [ -n "$ROOT_PW" ]; do
     echo -n "Insert root password: "
     read -rs ROOT_PW
-    echo ""
     echo -n "Insert password again: "
     read -rs TMP
-    echo ""
     if [[ -z "$ROOT_PW" || -z "$TMP" ]]; then
         echo "Type a password"
         ROOT_PW=""
@@ -48,6 +46,7 @@ sed -i "s/#$LOCALE_IT/$LOCALE_IT/" /etc/locale.gen
 sed -i "s/#$LOCALE_US/$LOCALE_US/" /etc/locale.gen
 locale-gen
 
+touch "./files/03-config_files/files/etc/hostname"
 echo "$ARCH_HOST" | tee "./files/03-config_files/files/etc/hostname"
 
 # Install packages

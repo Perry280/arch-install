@@ -15,11 +15,13 @@ echo "Creating user $ARCH_USER"
 useradd -mG wheel -s /bin/bash "$ARCH_USER"
 
 USER_PW=""
-while [ -z "$USER_PW" ]; do
+while [ -n "$USER_PW" ]; do
     echo -n "Insert $ARCH_USER password: "
     read -rs USER_PW
+    echo ""
     echo -n "Insert password again: "
     read -rs TMP
+    echo ""
     if [[ -z "$USER_PW" || -z "$TMP" ]]; then
         echo "Type a password"
         USER_PW=""
@@ -32,15 +34,15 @@ echo "$ARCH_USER:USER_PW" | chpasswd
 
 echo "Copying user files"
 FILES="./files/04-user"
-for f in "$FILES"/* ; do
-    chown "$ARCH_USER":"$ARCH_USER" "$f"
-done
-for f in "$FILES"/.* ; do
-    chown "$ARCH_USER":"$ARCH_USER" "$f"
-done
+shopt -s nullglob dotglob
+FILES=("$FILES/*")
+if (( ${#FILES[@]} )); then
+    for f in "$FILES" ; do
+        chown "$ARCH_USER":"$ARCH_USER" "$f"
+    done
 
-cp -fp "$FILES/*" "/home/$ARCH_USER/"
-cp -fp "$FILES/.*" "/home/$ARCH_USER/"
+    cp -fp "$FILES" "/home/$ARCH_USER/"
+fi
 
 (
     cd "/home/$ARCH_USER"
