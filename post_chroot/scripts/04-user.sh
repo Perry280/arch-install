@@ -34,13 +34,18 @@ echo "$ARCH_USER:USER_PW" | chpasswd
 
 echo "Copying user files"
 FILES="./files/04-user"
-FILES="$(ls -A "$FILES")"
-if [ -n "$FILES" ]; then
-    for f in "$FILES" ; do
+if [ -n "$(ls "$FILES")" ]; then
+    for f in "$FILES"/* ; do
         chown "$ARCH_USER":"$ARCH_USER" "$f"
+        cp -fp "$f" "/home/$ARCH_USER/"
     done
+fi
 
-    cp -fp "$FILES" "/home/$ARCH_USER/"
+if [ -n "$(ls -A "$FILES" | grep "^\.*")" ]; then
+    for f in "$FILES"/.* ; do
+        chown "$ARCH_USER":"$ARCH_USER" "$f"
+        cp -fp "$f" "/home/$ARCH_USER/"
+    done
 fi
 
 (
