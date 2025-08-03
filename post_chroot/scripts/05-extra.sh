@@ -36,12 +36,12 @@ echo "Installing lua-language-server"
 echo "Installing yay"
 (
     cd "/home/$ARCH_USER/repos"
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si --noconfirm
-    yay -Y --gendb
-    yay -Y --devel --save
-    yay
-    cd "/home/$ARCH_USER"
-    chown -R "$ARCH_USER":"$ARCH_USER" repos
+runuser -c "$ARCH_USER" -- bash << 'EOF'
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+yay -Y --gendb
+yay -Y --devel --save
+yay
+EOF
 )
