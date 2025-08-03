@@ -22,7 +22,7 @@ FILES="$FILES/files"
 (
     cd "$FILES"
     for d in ./* ; do
-        cp -rf "$d" "/$d"
+        cp -rf "$d" "/"
     done
 )
 
