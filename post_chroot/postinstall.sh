@@ -9,8 +9,10 @@ ROOT_PW=""
 while [ -z "$ROOT_PW" ]; do
     echo -n "Insert root password: "
     read -rs ROOT_PW
+    echo ""
     echo -n "Insert password again: "
     read -rs TMP
+    echo ""
     if [[ -z "$ROOT_PW" || -z "$TMP" ]]; then
         echo "Type a password"
         ROOT_PW=""
