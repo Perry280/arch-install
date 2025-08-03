@@ -34,9 +34,8 @@ echo "$ARCH_USER:USER_PW" | chpasswd
 
 echo "Copying user files"
 FILES="./files/04-user"
-shopt -s nullglob dotglob
-FILES=("$FILES/*")
-if (( ${#FILES[@]} )); then
+FILES="$(ls -A "$FILES")"
+if [ -n "$FILES" ]; then
     for f in "$FILES" ; do
         chown "$ARCH_USER":"$ARCH_USER" "$f"
     done
