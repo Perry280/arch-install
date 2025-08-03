@@ -5,7 +5,6 @@ btrfs-progs
 dosfstools
 exfatprogs
 git
-gzip
 htop
 man-db
 man-pages
