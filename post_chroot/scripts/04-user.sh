@@ -51,8 +51,8 @@ fi
 (
     cd "/home/$ARCH_USER"
     USER_DIR=("Desktop" "Desktop/share" ".config" ".local" ".local/share" "repos")
-    for f in "$USER_DIR" ; do
-        mkdir -p "$f"
-        chown "$ARCH_USER":"$ARCH_USER" "$f"
+    for d in "${USER_DIR[@]}" ; do
+        mkdir -p "$d"
+        chown "$ARCH_USER":"$ARCH_USER" "$d"
     done
 )
