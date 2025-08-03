@@ -50,6 +50,9 @@ fi
 
 (
     cd "/home/$ARCH_USER"
-    mkdir -p "Desktop/share"
-    chown -R "$ARCH_USER":"$ARCH_USER" "Desktop"
+    CREATE=("Desktop" "Desktop/share" ".config")
+    for f in "$CREATE" ; do
+        mkdir -p "$f"
+        chown "$ARCH_USER":"$ARCH_USER" "$f"
+    done
 )
