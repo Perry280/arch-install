@@ -1,3 +1,1 @@
-curl -L -o arch-install.tar.gz https://github.com/Perry280/arch-install/archive/refs/heads/main.tar.gz
-tar -xvzf arch-install.tar.gz -C arch-install
-chmod +x ./install.sh
+curl -L -o arch-install.tar.gz https://github.com/Perry280/arch-install/archive/refs/heads/main.tar.gz && mkdir arch-install && tar -xvzf arch-install.tar.gz -C arch-install && cd arch-install && mv arch.install-main/* . && rmdir arch-install-main && chmod +x ./install.sh && ./install.sh
