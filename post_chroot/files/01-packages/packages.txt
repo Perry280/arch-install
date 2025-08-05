@@ -19,5 +19,6 @@ sudo
 texinfo
 tree
 unzip
+wayland
 wget
 zip
