@@ -13,4 +13,5 @@ mapfile -t packages < "$PACKAGES"
 # echo "${packages[@]}"
 
 pacman -Syu --noconfirm
+pacman -Fy
 pacman -S --noconfirm --needed "${packages[@]}"
