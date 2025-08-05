@@ -5,23 +5,28 @@ set -euo pipefail
 ARCH_USER="arch"
 ARCH_HOST="Arch"
 
-ROOT_PW=""
-while [ -z "$ROOT_PW" ]; do
-    echo -n "Insert root password: "
-    read -rs ROOT_PW
-    echo ""
-    echo -n "Insert password again: "
-    read -rs TMP
-    echo ""
-    if [[ -z "$ROOT_PW" || -z "$TMP" ]]; then
-        echo "Type a password"
-        ROOT_PW=""
-    elif [ "$ROOT_PW" != "$TMP" ]; then
-        echo "Password do not match"
-        ROOT_PW=""
-    fi
+# ROOT_PW=""
+# while [ -z "$ROOT_PW" ]; do
+#     echo -n "Insert root password: "
+#     read -rs ROOT_PW
+#     echo ""
+#     echo -n "Insert password again: "
+#     read -rs TMP
+#     echo ""
+#     if [[ -z "$ROOT_PW" || -z "$TMP" ]]; then
+#         echo "Type a password"
+#         ROOT_PW=""
+#     elif [ "$ROOT_PW" != "$TMP" ]; then
+#         echo "Password do not match"
+#         ROOT_PW=""
+#     fi
+# done
+# echo "root:$ROOT_PW" | chpasswd
+
+passwd root
+while [ "$?" -ne 0 ]; do
+    passwd root
 done
-echo "root:$ROOT_PW" | chpasswd
 
 echo -n "Insert user name [Enter = arch]: "
 read -r option
