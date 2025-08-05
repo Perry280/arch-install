@@ -28,18 +28,18 @@ FILES="$FILES/files"
 
 echo "Setting journald"
 JOURNAL="/etc/systemd/journald.conf"
-sed -i "s/^#?Storage=.*$/Storage=persistent/" "$JOURNAL"
-sed -i "s/^#?SystemMaxUse=.*$/SystemMaxUse=100M/" "$JOURNAL"
+sed -i "s/^#\?\(Storage=\).*$/\1=persistent/" "$JOURNAL"
+sed -i "s/^#\?\(SystemMaxUse=\).*$/\1=100M/" "$JOURNAL"
 
 echo "Setting paccache"
 PACCACHE_FLAGS="-k0"
-sed -i "s/^PACCACHE=.*/PACCACHE='$PACCACHE_FLAGS'/" /etc/conf.d/pacman-contrib
+sed -i "s/^\(PACCACHE_ARGS=\).*/\1'$PACCACHE_FLAGS'/" /etc/conf.d/pacman-contrib
 
-sed -i "s/#Color/Color/" /etc/pacman.conf
+sed -i "s/#\(Color\)/\1/" /etc/pacman.conf
 
 echo "Setting makepkg.conf"
 MAKEPKG="/etc/makepkg.conf"
-sed -i  "s/^MAKEFLAGS=.*$/MAKEFLAGS=\"--jobs=\$(nproc)\"/" "$MAKEPKG"
+sed -i  "s/^\(MAKEFLAGS=\).*$/\1\"--jobs=\$(nproc)\"/" "$MAKEPKG"
 
 CFLAGS="-march=native -O2 -pipe -fno-plt -fexceptions \
         -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security \
@@ -47,8 +47,8 @@ CFLAGS="-march=native -O2 -pipe -fno-plt -fexceptions \
         -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer \
         -ftree-vectorize -fvect-cost-model=cheap \
         -fno-semantic-interposition -msse -msse2 -msse3 -mmmx"
-sed -i  "s/^CFLAGS=\"\(.*\\\n\)*.*\"$/CFLAGS=\"$CFLAGS\"/" "$MAKEPKG"
+sed -i  "s/^\(CFLAGS=\)\"\(.*\\\n\)*.*\"$/\1\"$CFLAGS\"/" "$MAKEPKG"
 
 echo "Setting rust.conf"
 RUSTFLAGS="-Cforce-frame-pointers=yes -C opt-level=2 -C target-cpu=native"
-sed -i "s/^RUSTFLAGS=.*$/RUSTFLAGS=\"$RUSTFLAGS\"/" "/etc/makepkg.conf.d/rust.conf"
+sed -i "s/^\(RUSTFLAGS=\).*$/\1\"$RUSTFLAGS\"/" "/etc/makepkg.conf.d/rust.conf"
