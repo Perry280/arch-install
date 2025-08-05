@@ -14,23 +14,28 @@ sed -i "s/# $WHEEL/$WHEEL/" /etc/sudoers
 echo "Creating user $ARCH_USER"
 useradd -mG wheel -s /bin/bash "$ARCH_USER"
 
-USER_PW=""
-while [ -z "$USER_PW" ]; do
-    echo -n "Insert $ARCH_USER password: "
-    read -rs USER_PW
-    echo ""
-    echo -n "Insert password again: "
-    read -rs TMP
-    echo ""
-    if [[ -z "$USER_PW" || -z "$TMP" ]]; then
-        echo "Type a password"
-        USER_PW=""
-    elif [ "$USER_PW" != "$TMP" ]; then
-        echo "Password do not match"
-        USER_PW=""
-    fi
+# USER_PW=""
+# while [ -z "$USER_PW" ]; do
+#     echo -n "Insert $ARCH_USER password: "
+#     read -rs USER_PW
+#     echo ""
+#     echo -n "Insert password again: "
+#     read -rs TMP
+#     echo ""
+#     if [[ -z "$USER_PW" || -z "$TMP" ]]; then
+#         echo "Type a password"
+#         USER_PW=""
+#     elif [ "$USER_PW" != "$TMP" ]; then
+#         echo "Password do not match"
+#         USER_PW=""
+#     fi
+# done
+# echo "$ARCH_USER:USER_PW" | chpasswd
+
+passwd "$ARCH_USER"
+while [ "$?" -ne 0 ]; do
+    passwd "$ARCH_USER"
 done
-echo "$ARCH_USER:USER_PW" | chpasswd
 
 echo "Copying user files"
 FILES="./files/04-user"
