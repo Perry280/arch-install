@@ -23,7 +23,7 @@ ARCH_HOST="Arch"
 # done
 # echo "root:$ROOT_PW" | chpasswd
 
-echo "Password of root."
+echo "Password for root."
 passwd root
 while [ "$?" -ne 0 ]; do
     passwd root
