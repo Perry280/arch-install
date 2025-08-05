@@ -10,7 +10,7 @@ fi
 echo "Installing neovim"
 (
     cd "/home/$ARCH_USER/.config"
-runuser -c "$ARCH_USER" -- bash << 'EOF'
+runuser -u "$ARCH_USER" -- bash << 'EOF'
 git clone https://github.com/Perry280/coding-setups.git
 mv coding-setups/neovim/nvim .
 rm -rf coding-setups
@@ -24,7 +24,7 @@ EOF
 echo "Installing lua-language-server"
 (
     cd "/home/$ARCH_USER/.local/share"
-runuser -c "$ARCH_USER" -- bash << 'EOF'
+runuser -u "$ARCH_USER" -- bash << 'EOF'
 git clone https://github.com/LuaLS/lua-language-server
 cd lua-language-server
 ./make.sh
@@ -38,7 +38,7 @@ EOF
 echo "Installing yay"
 (
     cd "/home/$ARCH_USER/repos"
-runuser -c "$ARCH_USER" -- bash << 'EOF'
+runuser -u "$ARCH_USER" -- bash << 'EOF'
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
