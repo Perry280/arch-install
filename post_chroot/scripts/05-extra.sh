@@ -18,7 +18,8 @@ chmod 755 nvim
 find ./nvim -type d -exec chmod 755 {} \;
 find ./nvim -type f -exec chmod 644 {} \;
 EOF
-    cp -rf nvim /root/.config
+    cd "/home/$ARCH_USER/.config"
+    cp -rf ./nvim /root/.config
 )
 
 echo "Installing lua-language-server"
