@@ -8,7 +8,7 @@ if [ -n "$1" ]; then
 fi
 
 echo "Allow wheel group to use sudo"
-WHEEL="%wheel\tALL=(ALL)\tALL"
+WHEEL="%wheel ALL=(ALL) ALL"
 sed -i "s/# $WHEEL/$WHEEL/" /etc/sudoers
 
 echo "Creating user $ARCH_USER"
@@ -32,6 +32,7 @@ useradd -mG wheel -s /bin/bash "$ARCH_USER"
 # done
 # echo "$ARCH_USER:USER_PW" | chpasswd
 
+echo "Password for $ARCH_USER."
 passwd "$ARCH_USER"
 while [ "$?" -ne 0 ]; do
     passwd "$ARCH_USER"
